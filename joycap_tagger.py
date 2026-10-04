@@ -41,7 +41,7 @@ class JoyCapTagger(BaseTagger):
 
     @property
     def name(self) -> str:
-        return "JoyCaption"
+        return "JoyCaption Beta One tagger"
 
     def predict(self, image_path: Path) -> str:
         image_uri = _image_to_base64_uri(image_path)

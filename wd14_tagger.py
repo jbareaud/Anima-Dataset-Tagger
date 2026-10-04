@@ -68,7 +68,7 @@ class WD14Tagger(BaseTagger):
 
     @property
     def name(self) -> str:
-        return "WD14"
+        return "Smiling Wolf WD tagger"
 
     def _load_labels_hf(self, repo_id: str) -> LabelData:
         try:
@@ -112,7 +112,7 @@ class WD14Tagger(BaseTagger):
     def get_tags(
             self,
             probs: Tensor,
-    ) -> str:      #tuple[str, str, dict[Any, Any], dict[Any, Any], dict[Any, Any]]:
+    ) -> str:
         # Convert indices+probs to labels
         probs = list(zip(self.labels.names, probs.numpy()))
 

@@ -1,4 +1,4 @@
-# Anima Tagger
+# Anima-Dataset-Tagger
 
 Caption generator for Anima Datasets.
 

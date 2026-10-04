@@ -27,8 +27,8 @@ def main():
     taggers = [
         WD14Tagger(model_name="eva02"),
         JoyCapTagger(mode="Straightforward"),
-        #QwenTagger(),
         Gemma4Tagger(),
+        # QwenTagger(),
     ]
 
     run_pipeline(image_dir=args.image_dir, taggers=taggers)

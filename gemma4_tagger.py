@@ -37,7 +37,7 @@ class Gemma4Tagger(BaseTagger):
 
     @property
     def name(self) -> str:
-        return "JoyCaption"
+        return "Gemma 4 tagger"
 
     def predict(self, image_path: Path) -> str:
         image_uri = _image_to_base64_uri(image_path)
