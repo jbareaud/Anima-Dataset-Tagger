@@ -1,0 +1,37 @@
+{
+  "wd14": {
+    "device": "cuda",
+    "model_name": "eva02",
+    "general_threshold": 0.2,
+    "character_threshold": 0.85,
+    "forbidden_tags": [
+      "watermark"
+    ],
+    "prefixes": []
+  },
+  "joycaption": {
+    "model_path": "/mnt/ssd1/LLM/models/Joy-Caption-Beta-One/llama-joycaption-beta-one-hf-llava.Q6_K.gguf",
+    "mmproj_path": "/mnt/ssd1/LLM/models/Joy-Caption-Beta-One/llama-joycaption-beta-one-llava-mmproj-model-f16.gguf",
+    "n_ctx": 2048,
+    "n_gpu_layers": -1,
+    "temperature": 0.2,
+    "max_tokens": 256,
+    "mode": "Straightforward"
+  },
+  "gemma4": {
+      "model_path": "/mnt/ssd1/LLM/models/Google/e4b/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/mnt/ssd1/LLM/models/Google/e4b/mmproj-BF16.gguf",
+      "n_ctx": 2048,
+      "n_gpu_layers": -1,
+      "max_tokens": 256,
+      "temperature": 0.2
+  },
+  "qwen": {
+      "model_path": "/mnt/ssd1/LLM/models/Qwen/Qwen-2.5-9b-uncensored/Qwen3.5-9B-The-Defiant-Fable-Uncnr-Heretic-NEO-MAX-Q6_K.gguf",
+      "mmproj_path": "/mnt/ssd1/LLM/models/Qwen/Qwen-2.5-9b-uncensored/mmproj-BF16.gguf",
+      "n_ctx": 2048,
+      "n_gpu_layers": -1,
+      "max_tokens": 256,
+      "temperature": 0.2
+  }
+}

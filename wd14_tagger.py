@@ -10,6 +10,7 @@ from timm.data import create_transform, resolve_data_config
 from huggingface_hub import hf_hub_download, login
 from huggingface_hub.utils import HfHubHTTPError
 from base_tagger import BaseTagger
+from config import WD14Config
 
 MODEL_REPO_MAP = {
     "vit": "SmilingWolf/wd-vit-tagger-v3",
@@ -17,9 +18,6 @@ MODEL_REPO_MAP = {
     "convnext": "SmilingWolf/wd-convnext-tagger-v3",
     "eva02": "SmilingWolf/wd-eva02-large-tagger-v3",
 }
-
-GENERAL_THRESHOLD = 0.2
-CHARACTER_THRESHOLD = 0.8
 
 @dataclass
 class LabelData:
@@ -31,28 +29,18 @@ class LabelData:
 class WD14Tagger(BaseTagger):
     def __init__(
             self,
-            model_name: str = "vit",
-            general_threshold = GENERAL_THRESHOLD,
-            character_threshold = CHARACTER_THRESHOLD,
-            device: str | None = None,
-            prefixes: list[str] | None = None,
-            forbidden_tags: set[str] | None = None, # set of Danbooru tags, with underscores
+            config: WD14Config,
     ):
         login()
-        if prefixes is None:
-            prefixes = [""]
-        print(f"Using model {model_name}")
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.general_threshold = general_threshold
-        self.character_threshold = character_threshold
-        self.prefixes = prefixes
-        self.forbidden_tags = forbidden_tags
+        self.config = config
+        print(f"Using model {self.config.model_name}")
+        self.device = self.config.device or ("cuda" if torch.cuda.is_available() else "cpu")
 
-        repo_id = MODEL_REPO_MAP.get(model_name, None)
+        repo_id = MODEL_REPO_MAP.get(self.config.model_name, None)
         if repo_id is None:
             raise AssertionError(f"model {repo_id} not found")
 
-        print(f"Loading model '{model_name}' from '{repo_id}'...")
+        print(f"Loading model '{self.config.model_name}' from '{repo_id}'...")
         self.model: nn.Module = timm.create_model("hf-hub:" + repo_id).eval()
         state_dict = timm.models.load_state_dict_from_hf(repo_id)
         self.model.load_state_dict(state_dict)
@@ -121,21 +109,21 @@ class WD14Tagger(BaseTagger):
 
         # General labels, pick any where prediction confidence > threshold
         gen_labels = [probs[i] for i in self.labels.general]
-        gen_labels = dict([x for x in gen_labels if x[1] > self.general_threshold])
+        gen_labels = dict([x for x in gen_labels if x[1] > self.config.general_threshold])
         gen_labels = dict(sorted(gen_labels.items(), key=lambda item: item[1], reverse=True))
 
         # Character labels, pick any where prediction confidence > threshold
         char_labels = [probs[i] for i in self.labels.character]
-        char_labels = dict([x for x in char_labels if x[1] > self.character_threshold])
+        char_labels = dict([x for x in char_labels if x[1] > self.config.character_threshold])
         char_labels = dict(sorted(char_labels.items(), key=lambda item: item[1], reverse=True))
 
         # Combine general and character labels, sort by confidence
         combined_names = [ x for x in list(gen_labels) + list(char_labels) ]
 
-        forbidden = self.forbidden_tags or set()
+        forbidden = self.config.forbidden_tags or set()
         filtered = [x for x in combined_names if x not in forbidden]
 
-        caption = [*self.prefixes, *filtered] if self.prefixes else filtered
+        caption = [*self.config.prefixes, *filtered] if self.config.prefixes else filtered
 
         caption =  ", ".join(caption)
         caption = caption.replace("_", " ").replace("(", "\\(").replace(")", "\\)")

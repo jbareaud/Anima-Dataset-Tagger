@@ -2,10 +2,8 @@ from pathlib import Path
 from llama_cpp import Llama
 from llama_cpp.llama_chat_format import Qwen25VLChatHandler
 from base_tagger import BaseTagger
+from config import QwenConfig
 from utils import _image_to_base64_uri
-
-MODEL_PATH = "/mnt/ssd1/LLM/models/Qwen/Qwen-2.5-9b-uncensored/Qwen3.5-9B-The-Defiant-Fable-Uncnr-Heretic-NEO-MAX-Q6_K.gguf"
-MMPROJ_PATH = "/mnt/ssd1/LLM/models/Qwen/Qwen-2.5-9b-uncensored/mmproj-BF16.gguf"
 
 SYSTEM_PROMPT = "You are a helpful image captioner."
 
@@ -21,17 +19,15 @@ Don't output anything but the requested information.
 class QwenTagger(BaseTagger):
     def __init__(
         self,
-        model_path: str = MODEL_PATH,
-        mmproj_path: str = MMPROJ_PATH,
-        n_ctx: int = 2048,
-        n_gpu_layers: int = -1
+        config: QwenConfig
     ):
-        chat_handler = Qwen25VLChatHandler(clip_model_path=mmproj_path)
+        self.config = config
+        chat_handler = Qwen25VLChatHandler(clip_model_path=self.config.mmproj_path)
         self.llm = Llama(
-            model_path=model_path,
+            model_path=self.config.model_path,
             chat_handler=chat_handler,
-            n_ctx=n_ctx,
-            n_gpu_layers=n_gpu_layers,
+            n_ctx=self.config.n_ctx,
+            n_gpu_layers=self.config.n_gpu_layers,
             verbose=False
         )
 
@@ -55,8 +51,8 @@ class QwenTagger(BaseTagger):
                     ]
                 }
             ],
-            max_tokens=256,
-            temperature=0.2
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature
         )
         return response["choices"][0]["message"]["content"].strip()
 

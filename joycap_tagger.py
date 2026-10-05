@@ -2,10 +2,8 @@ from pathlib import Path
 from llama_cpp import Llama
 from llama_cpp.llama_chat_format import Llava15ChatHandler
 from base_tagger import BaseTagger
+from config import JoyCaptionConfig
 from utils import _image_to_base64_uri
-
-MODEL_PATH = "/mnt/ssd1/LLM/models/Joy-Caption-Beta-One/llama-joycaption-beta-one-hf-llava.Q6_K.gguf"
-MMPROJ_PATH = "/mnt/ssd1/LLM/models/Joy-Caption-Beta-One/llama-joycaption-beta-one-llava-mmproj-model-f16.gguf"
 
 SYSTEM_PROMPT = "You are a helpful image captioner."
 
@@ -23,19 +21,15 @@ PROMPTS = {
 class JoyCapTagger(BaseTagger):
     def __init__(
         self,
-        mode: str = "Straightforward",
-        model_path: str = MODEL_PATH,
-        mmproj_path: str = MMPROJ_PATH,
-        n_ctx: int = 2048,
-        n_gpu_layers: int = -1
+        config: JoyCaptionConfig,
     ):
-        self.mode = mode
-        chat_handler = Llava15ChatHandler(clip_model_path=mmproj_path)
+        self.config = config
+        chat_handler = Llava15ChatHandler(clip_model_path=config.mmproj_path)
         self.llm = Llama(
-            model_path=model_path,
+            model_path=config.model_path,
             chat_handler=chat_handler,
-            n_ctx=n_ctx,
-            n_gpu_layers=n_gpu_layers,
+            n_ctx=config.n_ctx,
+            n_gpu_layers=config.n_gpu_layers,
             verbose=False
         )
 
@@ -55,12 +49,12 @@ class JoyCapTagger(BaseTagger):
                     "role": "user",
                     "content": [
                         {"type": "image_url", "image_url": {"url": image_uri}},
-                        {"type": "text", "text": PROMPTS.get(self.mode)},
+                        {"type": "text", "text": PROMPTS.get(self.config.mode)},
                     ]
                 }
             ],
-            max_tokens=256,
-            temperature=0.2
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature
         )
         return response["choices"][0]["message"]["content"].strip()
 
