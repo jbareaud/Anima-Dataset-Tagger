@@ -35,7 +35,7 @@ def main():
     taggers = [
         WD14Tagger(cfg.wd14),
         JoyCapTagger(cfg.joycaption),
-        Gemma4Tagger(cfg.gemma4),
+        #Gemma4Tagger(cfg.gemma4),
         #QwenTagger(cfg.qwen),
     ]
 

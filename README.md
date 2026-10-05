@@ -2,17 +2,19 @@
 
 Caption generator for Anima Datasets.
 
-This is a WIP, and modifying parameters and editing the models locs will require editing the python scripts directly.
-
-Tool built in Python 3.13.2 with torch 2.13.0+rocm10.0.0.
+See config.json for basic settings and model locations.
 
 ## Installation 
 
-Install the version of torch for your machine, then the requirements.txt file.
+Install torch/torchaudio/torchvision and llama-cpp-python. Make sure they use the same backend. Then :
+
+```commandline
+uv pip install Pillow pydantic pandas numpy timm huggingface-hub
+```
 
 ## Usage
  
-```
+```commandline
 uv run cli.py --image-dir "path/to/image_directory"
 ```
 

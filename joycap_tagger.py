@@ -1,6 +1,7 @@
 from pathlib import Path
 from llama_cpp import Llama
 from llama_cpp.llama_chat_format import Llava15ChatHandler
+
 from base_tagger import BaseTagger
 from config import JoyCaptionConfig
 from utils import _image_to_base64_uri
