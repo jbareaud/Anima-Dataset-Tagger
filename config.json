@@ -4,9 +4,7 @@
     "model_name": "eva02",
     "general_threshold": 0.2,
     "character_threshold": 0.85,
-    "forbidden_tags": [
-      "watermark"
-    ],
+    "forbidden_tags": [],
     "prefixes": []
   },
   "joycaption": {
@@ -21,6 +19,14 @@
   "gemma4": {
       "model_path": "/mnt/ssd1/LLM/models/Google/e4b/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
       "mmproj_path": "/mnt/ssd1/LLM/models/Google/e4b/mmproj-BF16.gguf",
+      "n_ctx": 2048,
+      "n_gpu_layers": -1,
+      "max_tokens": 256,
+      "temperature": 0.2
+  },
+  "qwen3vl": {
+      "model_path": "/mnt/ssd1/LLM/models/Qwen/Qwen3-VL-8B/Qwen3-VL-8B-Instruct-UD-Q4_K_XL.gguf",
+      "mmproj_path": "/mnt/ssd1/LLM/models/Qwen/Qwen3-VL-8B/mmproj-F16.gguf",
       "n_ctx": 2048,
       "n_gpu_layers": -1,
       "max_tokens": 256,

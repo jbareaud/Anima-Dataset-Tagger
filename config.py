@@ -27,6 +27,14 @@ class Gemma4Config(BaseModel):
     max_tokens: int
     temperature: float
 
+class Qwen3VLConfig(BaseModel):
+    model_path: str
+    mmproj_path: str
+    n_ctx: int
+    n_gpu_layers: int
+    max_tokens: int
+    temperature: float
+
 class QwenConfig(BaseModel):
     model_path: str
     mmproj_path: str
@@ -40,6 +48,7 @@ class AppConfig(BaseModel):
     joycaption: JoyCaptionConfig
     gemma4: Gemma4Config
     qwen: QwenConfig
+    qwen3vl: Qwen3VLConfig
 
 def load_config(config_path: Path | str = "config.json") -> AppConfig:
     path = Path(config_path)

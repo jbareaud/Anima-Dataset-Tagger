@@ -4,6 +4,7 @@ from pathlib import Path
 from gemma4_tagger import Gemma4Tagger
 from main import run_pipeline
 from config import load_config
+from qwen3vl_tagger import Qwen3VLTagger
 from qwen_tagger import QwenTagger
 from wd14_tagger import WD14Tagger
 from joycap_tagger import JoyCapTagger
@@ -46,6 +47,7 @@ def main():
         "JoyCapTagger": lambda: JoyCapTagger(cfg.joycaption),
         "Gemma4Tagger": lambda: Gemma4Tagger(cfg.gemma4),
         #"QwenTagger": lambda: QwenTagger(cfg.qwen),
+        "Qwen3VLTagger": lambda: Qwen3VLTagger(cfg.qwen3vl),
     }
 
     selected_taggers = args.taggers or list(tagger_factories.keys())

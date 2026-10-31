@@ -120,13 +120,13 @@ class WD14Tagger(BaseTagger):
         # Combine general and character labels, sort by confidence
         combined_names = [ x for x in list(gen_labels) + list(char_labels) ]
 
-        forbidden = self.config.forbidden_tags or set()
-        filtered = [x for x in combined_names if x not in forbidden]
+        cleaned_tags = [x.replace("_", " ").replace("(", "\\(").replace(")", "\\)") for x in combined_names]
+        forbidden_tags = self.config.forbidden_tags or set()
+        filtered_tags = [x for x in cleaned_tags if x not in forbidden_tags]
 
-        caption = [*self.config.prefixes, *filtered] if self.config.prefixes else filtered
+        caption_list = [*self.config.prefixes, *filtered_tags] if self.config.prefixes else filtered_tags
 
-        caption =  ", ".join(caption)
-        caption = caption.replace("_", " ").replace("(", "\\(").replace(")", "\\)")
+        caption = ", ".join(caption_list)
 
         return caption
 
