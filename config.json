@@ -1,9 +1,9 @@
 {
   "wd14": {
     "device": "cuda",
-    "model_name": "eva02",
-    "general_threshold": 0.2,
-    "character_threshold": 0.85,
+    "model_name": "swinv2",
+    "general_threshold": 0.15,
+    "character_threshold": 0.8,
     "forbidden_tags": [],
     "prefixes": []
   },
@@ -17,11 +17,11 @@
     "mode": "Straightforward"
   },
   "gemma4": {
-      "model_path": "/mnt/ssd1/LLM/models/Google/e4b/gemma-4-E4B-it-UD-Q4_K_XL.gguf",
-      "mmproj_path": "/mnt/ssd1/LLM/models/Google/e4b/mmproj-BF16.gguf",
-      "n_ctx": 2048,
+      "model_path": "/mnt/ssd1/LLM/models/Google/31b/gemma-4-31B-it-UD-IQ2_XXS.gguf",
+      "mmproj_path": "/mnt/ssd1/LLM/models/Google/31b/mmproj-BF16.gguf",
+      "n_ctx": 4096,
       "n_gpu_layers": -1,
-      "max_tokens": 256,
+      "max_tokens": 1024,
       "temperature": 0.2
   },
   "qwen3vl": {
