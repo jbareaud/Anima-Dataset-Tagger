@@ -27,10 +27,9 @@ Models run on llama cpp python with gguf models, except SmilingWolf which runs o
 Models list :
 - SmilingWolf for Danbooru tags
 - Joy Caption Beta One for straightforward description
-- Gemma 4 e4b with vision enabled to focus on specific elements, like direction of gaze.
+- Gemma 4 31b with vision enabled
+- Danbooru API for images taht exist in the Danbooru database  
 
-(qwen 3.5 9b exists but disabled)
+- (qwen 3.5 9b exists but disabled)
 
-
-
-
+Recommended taggers : DanbooruTagger,WD14Tagger,Gemma4Tagger   

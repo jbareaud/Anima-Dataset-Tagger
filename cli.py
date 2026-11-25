@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from danbooru_web_tagger import DanbooruTagger
 from gemma4_tagger import Gemma4Tagger
 from main import run_pipeline
 from config import load_config
@@ -47,7 +48,7 @@ def main():
         "JoyCapTagger": lambda: JoyCapTagger(cfg.joycaption),
         "Gemma4Tagger": lambda: Gemma4Tagger(cfg.gemma4),
         #"QwenTagger": lambda: QwenTagger(cfg.qwen),
-        "Qwen3VLTagger": lambda: Qwen3VLTagger(cfg.qwen3vl),
+        #"Qwen3VLTagger": lambda: Qwen3VLTagger(cfg.qwen3vl),
         "DanbooruTagger": lambda: DanbooruTagger(cfg.danbooru),
     }
 

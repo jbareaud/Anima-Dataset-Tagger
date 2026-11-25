@@ -4,7 +4,7 @@
     "model_name": "swinv2",
     "general_threshold": 0.15,
     "character_threshold": 0.8,
-    "separator": ", ",
+    "separator": " | ",
     "forbidden_tags": [],
     "prefixes": []
   },
@@ -42,6 +42,6 @@
       "temperature": 0.2
   },
   "danbooru": {
-    "separator": ", "
+    "separator": " | "
   }
 }
