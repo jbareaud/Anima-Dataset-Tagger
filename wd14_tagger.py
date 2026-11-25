@@ -126,7 +126,7 @@ class WD14Tagger(BaseTagger):
 
         caption_list = [*self.config.prefixes, *filtered_tags] if self.config.prefixes else filtered_tags
 
-        caption = ", ".join(caption_list)
+        caption = self.config.separator.join(caption_list)
 
         return caption
 

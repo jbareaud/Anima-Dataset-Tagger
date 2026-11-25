@@ -4,6 +4,7 @@
     "model_name": "swinv2",
     "general_threshold": 0.15,
     "character_threshold": 0.8,
+    "separator": ", ",
     "forbidden_tags": [],
     "prefixes": []
   },

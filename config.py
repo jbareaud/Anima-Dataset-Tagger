@@ -7,6 +7,7 @@ class WD14Config(BaseModel):
     model_name: str
     general_threshold: float
     character_threshold: float
+    separator: str
     forbidden_tags: set[str] = Field(default_factory=set)
     prefixes: list[str] = Field(default_factory=list)
 
