@@ -48,6 +48,7 @@ def main():
         "Gemma4Tagger": lambda: Gemma4Tagger(cfg.gemma4),
         #"QwenTagger": lambda: QwenTagger(cfg.qwen),
         "Qwen3VLTagger": lambda: Qwen3VLTagger(cfg.qwen3vl),
+        "DanbooruTagger": lambda: DanbooruTagger(cfg.danbooru),
     }
 
     selected_taggers = args.taggers or list(tagger_factories.keys())

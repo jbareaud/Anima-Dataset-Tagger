@@ -40,5 +40,8 @@
       "n_gpu_layers": -1,
       "max_tokens": 256,
       "temperature": 0.2
+  },
+  "danbooru": {
+    "separator": ", "
   }
 }

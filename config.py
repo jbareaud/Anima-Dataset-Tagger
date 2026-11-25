@@ -44,12 +44,16 @@ class QwenConfig(BaseModel):
     max_tokens: int
     temperature: float
 
+class DanbooruConfig(BaseModel):
+    separator: str
+
 class AppConfig(BaseModel):
     wd14: WD14Config #Field(default_factory=WD14Config)
     joycaption: JoyCaptionConfig
     gemma4: Gemma4Config
     qwen: QwenConfig
     qwen3vl: Qwen3VLConfig
+    danbooru: DanbooruConfig
 
 def load_config(config_path: Path | str = "config.json") -> AppConfig:
     path = Path(config_path)
